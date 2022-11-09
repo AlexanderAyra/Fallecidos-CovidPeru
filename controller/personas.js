@@ -9,21 +9,25 @@ const { mostrarAll,
 
 const colecionesDB = [
     'USUARIO',
+    'FECHA_CORTE',
     'FECHA_FALLECIMIENTO',
     'EDAD_DECLARADA',
     'SEXO',
+    'CLASIFICACION_DEF',
     'DEPARTAMENTO',
     'PROVINCIA',
     'DISTRITO',
-    'UBIGEO'
+    'UBIGEO',
+    'UUID'
 ]
 
 const buscarAll = async (req = request, res = response) => {
 
-    const erParm = validarParams(req.params);
-
     const count = Object.keys(req.params).length;
-    console.log(count);
+    const numArr = Object.entries(req.params);
+    const counttwo = numArr[0].length;
+
+    const erParm = validarParams(req.params, count);
 
     if (erParm) {
         return res.json({
@@ -38,16 +42,16 @@ const buscarAll = async (req = request, res = response) => {
             mostrarAll(res, req.params);
             break;
         case 2:
-            paramsTwo(res, req.params, count);
+            paramsTwo(res, req.params, count, counttwo);
             break;
         case 4:
-            paramsFour(res, req.params, count);
+            paramsTwo(res, req.params, count, counttwo);
             break;
         case 6:
-            paramsSix(res, req.params, count);
+            paramsTwo(res, req.params, count, counttwo);
             break;
         case 8:
-            paramsEight(res, req.params, count);
+            paramsTwo(res, req.params, count, counttwo);
             break;
         default:
             res.status(500).json({
