@@ -1,15 +1,15 @@
 const Persona = require('../model/personas');
 
 
-const twoParams = async (res, param) => {
+const departSexo = async (res, param) => {
 
-    const termino = Object.entries(param)[1][1];
-    // console.log(termino);
+    // console.log(res);
+    console.log(param);
 
-    const regex = new RegExp(termino, 'i');
+    const regex = new RegExp(param[1], 'i');
 
     const personaOne = await Persona.find({
-        $or: [{ DEPARTAMENTO: regex }, { DISTRITO: regex }]
+        $or: [{ DEPARTAMENTO: regex }, { SEXO: regex }]
     })
 
 
@@ -18,6 +18,95 @@ const twoParams = async (res, param) => {
     })
 }
 
+const clasifDef = async (res, param) => {
+    console.log(param);
+
+    const regex = new RegExp(param[1], 'i');
+
+    const personasOne = await Persona.find({ CLASIFICACION_DEF: regex })
+
+    return res.json({
+        personasOne
+    })
+}
+
+const fechaCorte = async (res, param) => {
+
+    const fechaCor = param[1];
+    console.log(fechaCor);
+
+    const personasOne = await Persona.find({ FECHA_CORTE: fechaCor })
+
+    return res.json({
+        personasOne
+    })
+}
+
+const fechaFall = async (res, param) => {
+    const fechaFall = param[1];
+    console.log(fechaFall);
+
+    const personaOne = await Persona.find({ FECHA_FALLECIMIENTO: fechaFall })
+
+    return res.json({
+        personaOne
+    })
+}
+
+const edadDeclarada = async (res, param) => {
+
+    const edadDecl = param[1]
+    console.log(edadDecl);
+
+    const personaOne = await Persona.find({ EDAD_DECLARADA: edadDecl })
+
+    return res.json({
+        personaOne
+    })
+}
+
+const provDb = async (res, param) => {
+
+    const termino = new RegExp(param[1], 'i');
+    console.log(termino);
+
+    const personaOne = await Persona.find({ PROVINCIA: termino })
+
+    return res.json({
+        personaOne
+    })
+}
+
+const distriDB = async (res, param) => {
+
+    const regex = new RegExp(param[1], 'i');
+
+    const personaOne = await Persona.find({ DISTRITO: regex })
+
+    return res.json({
+        personaOne
+    })
+}
+
+const ubigeoDB = async (res, param) => {
+
+    const regex = param[1]
+
+    const personaOne = await Persona.find({ UBIGEO: regex })
+
+    return res.json({
+        personaOne
+    })
+}
+
+
 module.exports = {
-    twoParams
+    departSexo,
+    clasifDef,
+    fechaCorte,
+    fechaFall,
+    edadDeclarada,
+    provDb,
+    distriDB,
+    ubigeoDB
 }

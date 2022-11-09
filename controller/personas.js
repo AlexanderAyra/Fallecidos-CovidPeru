@@ -17,8 +17,7 @@ const colecionesDB = [
     'DEPARTAMENTO',
     'PROVINCIA',
     'DISTRITO',
-    'UBIGEO',
-    'UUID'
+    'UBIGEO'
 ]
 
 const buscarAll = async (req = request, res = response) => {
@@ -34,8 +33,6 @@ const buscarAll = async (req = request, res = response) => {
             resp: `El Parametro: ${erParm} no esta permitida`
         })
     }
-
-    // let busqueda = Object.entries(req.params)[0][1]
 
     switch (count) {
         case 0:
@@ -59,45 +56,6 @@ const buscarAll = async (req = request, res = response) => {
             })
 
     }
-
-    // switch (count) {
-    //     case 'USUARIO':
-    //         // mostrarAll(res, req.params);
-    //         break;
-    //     case 'FECHA_FALLECIMIENTO':
-    //         // metodo();
-    //         break;
-    //     case 'EDAD_DECLARADA':
-    //         // metodo();
-    //         break;
-    //     case 'SEXO':
-    //         // metodo();
-    //         break;
-    //     case 'DEPARTAMENTO':
-    //         mostrarAll(res, req.params);
-    //         break;
-    //     case 'PROVINCIA':
-    //         // metodo();
-    //         break;
-    //     case 'DISTRITO':
-    //         // metodo();
-    //         break;
-    //     case 'UBIGEO':
-    //         // metodo();
-    //         break;
-
-    //     default:
-    //         res.status(500).json({
-    //             msg: 'Se le olvido hacer esta busqueda'
-    //         })
-
-    // }
-
-    // const personaOne = await Personas.find({ DEPARTAMENTO: 'LIMA' });
-
-    // res.json({
-    //     personaOne
-    // })
 }
 
 const countParams = (paramt) => {
@@ -120,13 +78,13 @@ const personasGetOne = async (req = request, res = response) => {
 
 const personasPost = async (req = request, res = response) => {
 
-    const { DEPARTAMENTO, PROVINCIA, DISTRITO } = req.body;
+    const { FECHA_CORTE, FECHA_FALLECIMIENTO, EDAD_DECLARADA, SEXO, CLASIFICACION_DEF, UBIGEO, UUID, DEPARTAMENTO, PROVINCIA, DISTRITO } = req.body;
 
-    const persoOne = new Personas({ DEPARTAMENTO, PROVINCIA, DISTRITO });
+    const persoOne = new Personas({ FECHA_CORTE, FECHA_FALLECIMIENTO, EDAD_DECLARADA, SEXO, CLASIFICACION_DEF, UBIGEO, UUID, DEPARTAMENTO, PROVINCIA, DISTRITO });
     await persoOne.save();
 
     res.json({
-        resp: persoOne
+        persoOne
     })
 
 }

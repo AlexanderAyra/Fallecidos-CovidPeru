@@ -1,6 +1,13 @@
 const Personas = require('../model/personas');
 
-const { twoParams } = require('./consultasDB');
+const { departSexo,
+    clasifDef,
+    fechaCorte,
+    fechaFall,
+    edadDeclarada,
+    provDb,
+    distriDB,
+    ubigeoDB } = require('./consultasDB');
 
 const colecionesDB = [
     'USUARIO',
@@ -12,8 +19,7 @@ const colecionesDB = [
     'DEPARTAMENTO',
     'PROVINCIA',
     'DISTRITO',
-    'UBIGEO',
-    'UUID'
+    'UBIGEO'
 ]
 
 const mostrarAll = async (res, params) => {
@@ -31,27 +37,50 @@ const mostrarAll = async (res, params) => {
 const paramsTwo = async (res, params, count, counttwo) => {
 
     const listCompleta = addConsultas(params, count, counttwo);
-    console.log(listCompleta);
+    console.log(listCompleta[0].toUpperCase());
 
-    const termino = Object.entries(params)[1][1];
+    switch (listCompleta[0].toUpperCase()) {
+        case 'DEPARTAMENTO':
+        case 'SEXO':
+            departSexo(res, listCompleta);
+            break;
+        case 'CLASIFICACION_DEF':
+            clasifDef(res, listCompleta);
+            break;
+        case 'FECHA_CORTE':
+            fechaCorte(res, listCompleta);
+            break;
+        case 'FECHA_FALLECIMIENTO':
+            fechaFall(res, listCompleta);
+            break;
+        case 'EDAD_DECLARADA':
+            edadDeclarada(res, listCompleta);
+            break;
+        case 'PROVINCIA':
+            provDb(res, listCompleta);
+            break;
+        case 'DISTRITO':
+            distriDB(res, listCompleta);
+            break;
+        case 'UBIGEO':
+            ubigeoDB(res, listCompleta);
+            break;
+        default:
+            return res.status(500).json({
+                msg: 'Verifica tu URL'
+            })
+    }
 
-    // console.log(termino);
-    const regex = new RegExp(termino.toUpperCase(), 'i');
+    // const regex = new RegExp(listCompleta[1].toUpperCase(), 'i');
     // console.log(regex);
 
-    const personaOne = await Personas.find({
-        $or: [{ DEPARTAMENTO: { $eq: regex } }, { DISTRITO: { $eq: regex } }, { PROVINCIA: regex }]
-    })
+    // const personaOne = await Personas.find({
+    //     $or: [{ DEPARTAMENTO: regex }, { DISTRITO: regex }, { PROVINCIA: regex }]
+    // })
 
-
-    // const personaOne = await Personas.find()
-    //     .or([{ DEPARTAMENTO: regex }, { PROVINCIA: regex }], { DISTRITO: regex })
-
-
-
-    return res.json({
-        personaOne
-    })
+    // return res.json({
+    //     msg: 'Todo va bien'
+    // })
 
 
     // let listConsultas = await addConsultas(params, count);
@@ -89,9 +118,6 @@ const paramsTwo = async (res, params, count, counttwo) => {
     //         twoParams(res, params);
     //         break;
     //     case 'UBIGEO':
-    //         twoParams(res, params);
-    //         break;
-    //     case 'UUID':
     //         twoParams(res, params);
     //         break;
     //     default:
@@ -180,7 +206,7 @@ const addConsultas = (parms, count, counttwo) => {
 
     const listCons = [];
     let consList = Object.entries(parms);
-    console.log(consList);
+    // console.log(consList);
     let addtwo = true;
     // console.log(consList[0][1]);
 
@@ -202,11 +228,21 @@ const addConsultas = (parms, count, counttwo) => {
                 addtwo = false;
                 break;
             } else if (consList[i][e].toUpperCase() == 'EDAD_DECLARADA') {
-                console.log('EDAD_DECLARADA');
+                listCons.push(consList[i][1]);
+                const fechaBusqueda = Number(consList[i + 1][e]);
+                console.log(fechaBusqueda);
+                listCons.push(fechaBusqueda);
+                add = false
+                addtwo = false;
+                break;
             } else if (consList[i][e].toUpperCase() == 'UBIGEO') {
-                console.log('UBIGEO');
-            } else if (consList[i][e].toUpperCase() == 'UUID') {
-                console.log('UUID');
+                listCons.push(consList[i][1]);
+                const fechaBusqueda = Number(consList[i + 1][e]);
+                console.log(fechaBusqueda);
+                listCons.push(fechaBusqueda);
+                add = false
+                addtwo = false;
+                break;
             } else if (consList[i][e].toUpperCase() == 'EDAD_DECLARADA' ||
                 consList[i][e].toUpperCase() == 'SEXO' ||
                 consList[i][e].toUpperCase() == 'CLASIFICACION_DEF' ||
