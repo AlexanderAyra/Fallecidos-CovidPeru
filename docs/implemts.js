@@ -9,6 +9,16 @@ const { departSexo,
     distriDB,
     ubigeoDB } = require('./consultasDB');
 
+const { departEdad,
+    provinSexo,
+    distritFechFall,
+    fechaCorteDepa,
+    fechaFallEdad,
+    edadDeclarSexo,
+    sexoFechFall,
+    clasifDefDepa,
+    ubigeoDepa } = require('../docs/biConsultas')
+
 const colecionesDB = [
     'USUARIO',
     'FECHA_CORTE',
@@ -37,7 +47,6 @@ const mostrarAll = async (res, params) => {
 const paramsTwo = async (res, params, count, counttwo) => {
 
     const listCompleta = addConsultas(params, count, counttwo);
-    console.log(listCompleta[0].toUpperCase());
 
     switch (listCompleta[0].toUpperCase()) {
         case 'DEPARTAMENTO':
@@ -128,17 +137,45 @@ const paramsTwo = async (res, params, count, counttwo) => {
 
 }
 
-const valorString = async (res, params, count) => {
+const paramsFour = async (res, params, count, counttwo) => {
 
+    const listCompleta = await addConsultas(params, count, counttwo);
 
-}
+    // console.log(listCompleta);
 
-const paramsFour = async (res, params, count) => {
-
-    return res.json({
-        msg: 'Todo va Bien en Four'
-    })
-
+    switch (listCompleta[0].toUpperCase()) {
+        case 'DEPARTAMENTO':
+            departEdad(res, listCompleta);
+            break;
+        case 'PROVINCIA':
+            provinSexo(res, listCompleta);
+            break;
+        case 'DISTRITO':
+            distritFechFall(res, listCompleta);
+            break;
+        case 'FECHA_CORTE':
+            fechaCorteDepa(res, listCompleta);
+            break;
+        case 'FECHA_FALLECIMIENTO':
+            fechaFallEdad(res, listCompleta);
+            break;
+        case 'EDAD_DECLARADA':
+            edadDeclarSexo(res, listCompleta);
+            break;
+        case 'SEXO':
+            sexoFechFall(res, listCompleta)
+            break;
+        case 'CLASIFICACION_DEF':
+            clasifDefDepa(res, listCompleta);
+            break;
+        case 'UBIGEO':
+            ubigeoDepa(res, listCompleta);
+            break;
+        default:
+            return res.status(500).json({
+                msg: 'Verifica tu URL'
+            })
+    }
 }
 
 const paramsSix = async (res, params, count) => {
@@ -175,14 +212,6 @@ const paramsSix = async (res, params, count) => {
     // return res.json({
     //     persTwo
     // })
-
-}
-
-const paramsEight = async (res, params, count) => {
-
-    return res.json({
-        msg: 'Todo va Bien en Four'
-    })
 
 }
 
@@ -230,7 +259,6 @@ const addConsultas = (parms, count, counttwo) => {
             } else if (consList[i][e].toUpperCase() == 'EDAD_DECLARADA') {
                 listCons.push(consList[i][1]);
                 const fechaBusqueda = Number(consList[i + 1][e]);
-                console.log(fechaBusqueda);
                 listCons.push(fechaBusqueda);
                 add = false
                 addtwo = false;
@@ -238,7 +266,6 @@ const addConsultas = (parms, count, counttwo) => {
             } else if (consList[i][e].toUpperCase() == 'UBIGEO') {
                 listCons.push(consList[i][1]);
                 const fechaBusqueda = Number(consList[i + 1][e]);
-                console.log(fechaBusqueda);
                 listCons.push(fechaBusqueda);
                 add = false
                 addtwo = false;
@@ -264,8 +291,7 @@ const addConsultas = (parms, count, counttwo) => {
 module.exports = {
     mostrarAll,
     paramsTwo,
-    paramsFour,
     paramsSix,
-    paramsEight,
+    paramsFour,
     validarParams
 }

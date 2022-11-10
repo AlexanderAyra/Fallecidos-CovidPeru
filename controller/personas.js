@@ -1,24 +1,6 @@
 const { request, response } = require('express')
 const Personas = require('../model/personas');
-const { mostrarAll,
-    paramsTwo,
-    paramsFour,
-    paramsSix,
-    paramsEight,
-    validarParams } = require('../docs/implemts')
-
-const colecionesDB = [
-    'USUARIO',
-    'FECHA_CORTE',
-    'FECHA_FALLECIMIENTO',
-    'EDAD_DECLARADA',
-    'SEXO',
-    'CLASIFICACION_DEF',
-    'DEPARTAMENTO',
-    'PROVINCIA',
-    'DISTRITO',
-    'UBIGEO'
-]
+const { mostrarAll, paramsTwo, paramsFour, validarParams } = require('../docs/implemts')
 
 const buscarAll = async (req = request, res = response) => {
 
@@ -42,13 +24,7 @@ const buscarAll = async (req = request, res = response) => {
             paramsTwo(res, req.params, count, counttwo);
             break;
         case 4:
-            paramsTwo(res, req.params, count, counttwo);
-            break;
-        case 6:
-            paramsTwo(res, req.params, count, counttwo);
-            break;
-        case 8:
-            paramsTwo(res, req.params, count, counttwo);
+            paramsFour(res, req.params, count, counttwo);
             break;
         default:
             res.status(500).json({
@@ -58,15 +34,8 @@ const buscarAll = async (req = request, res = response) => {
     }
 }
 
-const countParams = (paramt) => {
-    const count = Object.keys(paramet).length;
-    return count
-}
-
 const personasGetOne = async (req = request, res = response) => {
     const { edad, termino } = req.params
-
-    // const regex = new RegExp(termino, 'i');
 
     const personaOne = await Personas.find()
         .where('EDAD_DECLARADA').gt(30).lt(60)
@@ -86,10 +55,6 @@ const personasPost = async (req = request, res = response) => {
     res.json({
         persoOne
     })
-
-}
-
-const getPersonas = async (req = request, res = response) => {
 
 }
 

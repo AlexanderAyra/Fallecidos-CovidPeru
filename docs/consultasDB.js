@@ -3,9 +3,6 @@ const Persona = require('../model/personas');
 
 const departSexo = async (res, param) => {
 
-    // console.log(res);
-    console.log(param);
-
     const regex = new RegExp(param[1], 'i');
 
     const personaOne = await Persona.find({
@@ -19,7 +16,6 @@ const departSexo = async (res, param) => {
 }
 
 const clasifDef = async (res, param) => {
-    console.log(param);
 
     const regex = new RegExp(param[1], 'i');
 
@@ -33,7 +29,6 @@ const clasifDef = async (res, param) => {
 const fechaCorte = async (res, param) => {
 
     const fechaCor = param[1];
-    console.log(fechaCor);
 
     const personasOne = await Persona.find({ FECHA_CORTE: fechaCor })
 
@@ -44,7 +39,6 @@ const fechaCorte = async (res, param) => {
 
 const fechaFall = async (res, param) => {
     const fechaFall = param[1];
-    console.log(fechaFall);
 
     const personaOne = await Persona.find({ FECHA_FALLECIMIENTO: fechaFall })
 
@@ -56,7 +50,6 @@ const fechaFall = async (res, param) => {
 const edadDeclarada = async (res, param) => {
 
     const edadDecl = param[1]
-    console.log(edadDecl);
 
     const personaOne = await Persona.find({ EDAD_DECLARADA: edadDecl })
 
@@ -68,7 +61,6 @@ const edadDeclarada = async (res, param) => {
 const provDb = async (res, param) => {
 
     const termino = new RegExp(param[1], 'i');
-    console.log(termino);
 
     const personaOne = await Persona.find({ PROVINCIA: termino })
 
