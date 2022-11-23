@@ -1,104 +1,140 @@
-const Persona = require('../model/personas');
-
+const Persona = require("../model/personas");
 
 const departSexo = async (res, param) => {
+  const regexTerm = new RegExp(param.terminouno, "i");
 
-    const regex = new RegExp(param[1], 'i');
+  const [count, personaOne] = await Promise.all([
+    Persona.countDocuments({ DEPARTAMENTO: regexTerm }),
+    Persona.find({ DEPARTAMENTO: regexTerm }),
+  ]);
 
-    const personaOne = await Persona.find({
-        $or: [{ DEPARTAMENTO: regex }, { SEXO: regex }]
-    })
+  return res.json({
+    count,
+    personaOne,
+  });
+};
 
+const getSexo = async (res, param) => {
+  const regexTerm = new RegExp(param.terminouno, "i");
 
-    return res.json({
-        personaOne
-    })
-}
+  const [count, personaOne] = await Promise.all([
+    Persona.countDocuments({ SEXO: regexTerm }),
+    Persona.find({ SEXO: regexTerm }),
+  ]);
+
+  return res.json({
+    count,
+    personaOne,
+  });
+};
 
 const clasifDef = async (res, param) => {
+  const regex = new RegExp(param.terminouno, "i");
 
-    const regex = new RegExp(param[1], 'i');
+  const [count, personasOne] = await Promise.all([
+    Persona.countDocuments({ CLASIFICACION_DEF: regex }),
+    Persona.find({ CLASIFICACION_DEF: regex }),
+  ]);
 
-    const personasOne = await Persona.find({ CLASIFICACION_DEF: regex })
-
-    return res.json({
-        personasOne
-    })
-}
+  return res.json({
+    count,
+    personasOne,
+  });
+};
 
 const fechaCorte = async (res, param) => {
+  const fechaCor = new Date(param.terminouno);
 
-    const fechaCor = param[1];
+  const [count, personasOne] = await Promise.all([
+    Persona.countDocuments({ FECHA_CORTE: fechaCor }),
+    Persona.find({ FECHA_CORTE: fechaCor }),
+  ]);
 
-    const personasOne = await Persona.find({ FECHA_CORTE: fechaCor })
-
-    return res.json({
-        personasOne
-    })
-}
+  return res.json({
+    count,
+    personasOne,
+  });
+};
 
 const fechaFall = async (res, param) => {
-    const fechaFall = param[1];
+  const fechaFall = new Date(param.terminouno);
 
-    const personaOne = await Persona.find({ FECHA_FALLECIMIENTO: fechaFall })
+  const [count, personaOne] = await Promise.all([
+    Persona.countDocuments({ FECHA_FALLECIMIENTO: fechaFall }),
+    Persona.find({ FECHA_FALLECIMIENTO: fechaFall }),
+  ]);
 
-    return res.json({
-        personaOne
-    })
-}
+  return res.json({
+    count,
+    personaOne,
+  });
+};
 
 const edadDeclarada = async (res, param) => {
+  const edadDecl = Number(param.terminouno);
 
-    const edadDecl = param[1]
+  const [count, personaOne] = await Promise.all([
+    Persona.countDocuments({ EDAD_DECLARADA: edadDecl }),
+    Persona.find({ EDAD_DECLARADA: edadDecl }),
+  ]);
 
-    const personaOne = await Persona.find({ EDAD_DECLARADA: edadDecl })
-
-    return res.json({
-        personaOne
-    })
-}
+  return res.json({
+    count,
+    personaOne,
+  });
+};
 
 const provDb = async (res, param) => {
+  const termino = new RegExp(param.terminouno, "i");
 
-    const termino = new RegExp(param[1], 'i');
+  const [count, personaOne] = await Promise.all([
+    Persona.countDocuments({ PROVINCIA: termino }),
+    Persona.find({ PROVINCIA: termino }),
+  ]);
 
-    const personaOne = await Persona.find({ PROVINCIA: termino })
-
-    return res.json({
-        personaOne
-    })
-}
+  return res.json({
+    count,
+    personaOne,
+  });
+};
 
 const distriDB = async (res, param) => {
+  const terminouno = param.terminouno.toUpperCase();
+  const regex = new RegExp(terminouno, "i");
 
-    const regex = new RegExp(param[1], 'i');
+  const [count, personaOne] = await Promise.all([
+    Persona.countDocuments({ DISTRITO: regex }),
+    Persona.find({ DISTRITO: regex }),
+  ]);
 
-    const personaOne = await Persona.find({ DISTRITO: regex })
-
-    return res.json({
-        personaOne
-    })
-}
+  return res.json({
+    count,
+    personaOne,
+  });
+};
 
 const ubigeoDB = async (res, param) => {
+  const regex = Number(param.terminouno);
 
-    const regex = param[1]
+  const [count, personaOne] = await Promise.all([
+    Persona.countDocuments({ UBIGEO: regex }),
+    Persona.find({ UBIGEO: regex }),
+  ]);
 
-    const personaOne = await Persona.find({ UBIGEO: regex })
-
-    return res.json({
-        personaOne
-    })
-}
-
+  return res.json({
+    count,
+    personaOne,
+  });
+};
 
 module.exports = {
-    departSexo,
-    clasifDef,
-    fechaCorte,
-    fechaFall,
-    edadDeclarada,
-    provDb,
-    distriDB,
-    ubigeoDB
-}
+  departSexo,
+  getSexo,
+  clasifDef,
+  fechaCorte,
+  fechaFall,
+  edadDeclarada,
+  provDb,
+  distriDB,
+  ubigeoDB,
+};
