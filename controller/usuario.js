@@ -1,30 +1,34 @@
-const { request, response } = require('express');
-const bcryptjs = require('bcryptjs');
+const {request, response} = require("express");
+const bcryptjs = require("bcryptjs");
 
-const Usuario = require('../model/usuarios');
+const Usuario = require("../model/usuarios");
 
 const usuariosGet = async (req = request, res = response) => {
-
-    const { desde, limite } = req.query
+    // const {desde, limite} = req.query;
 
     const [total, usuarios] = await Promise.all([
         Usuario.countDocuments(),
-        Usuario.find()
-            .skip(Number(desde))
-            .limit(Number(limite))
-    ])
+        Usuario.find(),
+    ]);
     // const usuarioOne = await Usuario.find();
 
     res.json({
         total,
-        usuarios
-    })
-}
+        usuarios,
+    });
+};
 
 const usuarioPost = async (req = request, res = response) => {
-    const { nombres, apellidos, edad, correo, contraseña, rol } = req.body
+    const {nombres, apellidos, edad, correo, contraseña, rol} = req.body;
 
-    const usuario = new Usuario({ nombres, apellidos, edad, correo, contraseña, rol })
+    const usuario = new Usuario({
+        nombres,
+        apellidos,
+        edad,
+        correo,
+        contraseña,
+        rol,
+    });
 
     const salt = bcryptjs.genSaltSync(10);
     usuario.contraseña = bcryptjs.hashSync(contraseña, salt);
@@ -32,13 +36,13 @@ const usuarioPost = async (req = request, res = response) => {
     await usuario.save();
 
     return res.json({
-        usuario
-    })
-}
+        usuario,
+    });
+};
 
 const usuarioPut = async (req = request, res = response) => {
-    const { id } = req.params
-    const { _id, nombres, apellidos, contraseña, ...resto } = req.body
+    const {id} = req.params;
+    const {_id, nombres, apellidos, contraseña, ...resto} = req.body;
 
     if (contraseña) {
         const salt = bcryptjs.genSaltSync(10);
@@ -50,13 +54,12 @@ const usuarioPut = async (req = request, res = response) => {
     const usuario = await Usuario.findByIdAndUpdate(id, resto);
 
     res.json({
-        usuario
-    })
-}
-
+        usuario,
+    });
+};
 
 module.exports = {
     usuariosGet,
     usuarioPost,
-    usuarioPut
+    usuarioPut,
 };

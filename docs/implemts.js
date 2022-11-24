@@ -52,8 +52,6 @@ const mostrarAll = async (res) => {
 };
 
 const paramsTwo = async (res, params) => {
-  console.log("--------------------");
-
   switch (params.consulta.toUpperCase()) {
     case "DEPARTAMENTO":
       departSexo(res, params);
@@ -90,8 +88,6 @@ const paramsTwo = async (res, params) => {
 };
 
 const paramsFour = async (res, params) => {
-  //   console.log(params);
-
   switch (params.consulta.toUpperCase()) {
     case "DEPARTAMENTO":
       departEdad(res, params);
