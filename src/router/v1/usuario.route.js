@@ -10,6 +10,7 @@ const { validarCampos } = require("../../middlewares/validar-Campos");
 
 const router = Router();
 
+
 router
   .route('/')
   .get(auth('getUsers'), validate(userValidation.getUser), authController.getUsers)
