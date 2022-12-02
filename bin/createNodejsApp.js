@@ -2,21 +2,14 @@
 const util = require("util");
 const path = require("path");
 const fs = require("fs");
-const {execSync} = require("child_process");
+const { execSync } = require("child_process");
 
 // Utility functions
 const exec = util.promisify(require("child_process").exec);
-// fs.copyFileSync(path.join(appPath, '.env.example'), path.join(appPath, '.env'));
-const pathDir = process.cwd();
-// console.log(path.join(pathTwo, ".example.env"));
-
-console.log(`Starting directory: ${process.cwd()}`);
-process.chdir("../controller");
-console.log(`New directory: ${process.cwd()}`);
 
 async function runCmd(command) {
     try {
-        const {stdout, stderr} = await exec(command);
+        const { stdout, stderr } = await exec(command);
         console.log(stdout);
         console.log(stderr);
     } catch {
@@ -28,7 +21,7 @@ async function runCmd(command) {
 
 async function hasYarn() {
     try {
-        await execSync("yarnpkg --version", {stdio: "ignore"});
+        await execSync("yarnpkg --version", { stdio: "ignore" });
         return true;
     } catch {
         return false;
@@ -67,15 +60,8 @@ try {
 
 async function setup() {
     try {
-        // Clone repo
-        console.log(`Downloading files from repo ${repo}`);
-        // await runCmd(`git clone --depth 1 ${repo} ${folderName}`);
-        console.log("Cloned successfully.");
-        console.log("");
-
         // Change directory
         process.chdir(appPath);
-
         // Install dependencies
         const useYarn = await hasYarn();
         console.log("Installing dependencies...");
@@ -86,17 +72,14 @@ async function setup() {
         }
         console.log("Dependencies installed successfully.");
         console.log();
-
         // Copy envornment variables
         fs.copyFileSync(
             path.join(appPath, ".env.example"),
             path.join(appPath, ".env")
         );
         console.log("Environment files copied.");
-
         // Delete .git folder
         await runCmd("npx rimraf ./.git");
-
         // Remove extra files
         fs.unlinkSync(path.join(appPath, "CHANGELOG.md"));
         fs.unlinkSync(path.join(appPath, "CODE_OF_CONDUCT.md"));
@@ -106,10 +89,8 @@ async function setup() {
         if (!useYarn) {
             fs.unlinkSync(path.join(appPath, "yarn.lock"));
         }
-
         console.log("Installation is now complete!");
         console.log();
-
         console.log("We suggest that you start by typing:");
         console.log(`    cd ${folderName}`);
         console.log(useYarn ? "    yarn dev" : "    npm run dev");
