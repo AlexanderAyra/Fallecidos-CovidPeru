@@ -8,7 +8,6 @@ const bcryptjs = require('bcryptjs');
 const Usuario = require("../model/user.model");
 
 const getUsers = catchAsync(async (req, res) => {
-    console.log('dentro de Get');
     const filter = pick(req.query, ['name', 'role']);
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
     const result = await userService.queryUsers(filter, options);

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {buscarAll, personasPost} = require("../../controller/personas");
+const { buscarAll, personasPost } = require("../../controller/personas");
 
 router.get("/", buscarAll);
 router.get("/:consulta/:terminouno", buscarAll);
