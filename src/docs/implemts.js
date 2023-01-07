@@ -1,7 +1,7 @@
 const Personas = require("../model/people.model");
 
 const {
-    departSexo,
+    getDepart,
     clasifDef,
     fechaCorte,
     fechaFall,
@@ -13,16 +13,15 @@ const {
 } = require("./consultasDB");
 
 const {
-    departEdad,
-    provinSexo,
-    distritFechFall,
-    fechaCorteDepa,
-    fechaFallEdad,
-    edadDeclarSexo,
-    sexoFechFall,
-    clasifDefDepa,
-    ubigeoDepa,
-} = require("./biConsultas");
+    getDepartamet,
+    getProvince,
+    getDistrict,
+    getDateDeath,
+    getDateCourt,
+    getStateAge,
+    getSex,
+    getDeathClassification,
+    getUbigeo } = require('../docs/findDepartamento')
 
 const colecionesDB = [
     "USUARIO",
@@ -42,19 +41,22 @@ const mostrarAll = async (res) => {
         Personas.countDocuments(),
         Personas.find(),
     ]);
-    // const personasAll = await Personas.find();
+
+
+    // const personasAll = await Personas.find({});
     // const count = personasAll.length;
 
     return res.json({
-        total,
-        personas,
+        count: total,
+        personas
     });
 };
 
 const paramsTwo = async (res, params) => {
+
     switch (params.consulta.toUpperCase()) {
         case "DEPARTAMENTO":
-            departSexo(res, params);
+            getDepart(res, params);
             break;
         case "SEXO":
             getSexo(res, params);
@@ -90,48 +92,37 @@ const paramsTwo = async (res, params) => {
 const paramsFour = async (res, params) => {
     switch (params.consulta.toUpperCase()) {
         case "DEPARTAMENTO":
-            departEdad(res, params);
+            getDepartamet(res, params);
             break;
         case "PROVINCIA":
-            provinSexo(res, params);
+            getProvince(res, params);
             break;
         case "DISTRITO":
-            distritFechFall(res, params);
+            getDistrict(res, params);
             break;
         case "FECHA_CORTE":
-            fechaCorteDepa(res, params);
+            getDateCourt(res, params);
             break;
         case "FECHA_FALLECIMIENTO":
-            fechaFallEdad(res, params);
+            getDateDeath(res, params);
             break;
         case "EDAD_DECLARADA":
-            edadDeclarSexo(res, params);
+            getStateAge(res, params);
             break;
         case "SEXO":
-            sexoFechFall(res, params);
+            getSex(res, params);
             break;
         case "CLASIFICACION_DEF":
-            clasifDefDepa(res, params);
+            getDeathClassification(res, params);
             break;
         case "UBIGEO":
-            ubigeoDepa(res, params);
+            getUbigeo(res, params);
             break;
         default:
             return res.status(500).json({
                 msg: "Verifica tu URL",
             });
     }
-};
-
-const paramsSix = async (res, params, count) => {
-    const listCompleta = addConsultas(params, count);
-
-    const fechaBusqueda = new Date(`${listCompleta[3]}T00:00:00.000+00:00`);
-    const regex1 = listCompleta[0];
-
-    res.json({
-        msg: regex1,
-    });
 };
 
 const validarParams = (params) => {

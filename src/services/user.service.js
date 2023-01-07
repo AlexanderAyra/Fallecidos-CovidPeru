@@ -1,6 +1,6 @@
 const User = require("../model/user.model");
 const httpStatus = require('http-status');
-const apiError = require('../utils/ApiError')
+const ApiError = require('../utils/ApiError')
 
 
 /**
@@ -29,6 +29,15 @@ const queryUsers = async (filter, options) => {
     return users;
 };
 
+/**
+ * Get user by id
+ * @param {ObjectId} id
+ * @returns {Promise<User>}
+ */
+const getUserById = async (id) => {
+    return User.findById(id);
+};
+
 const getUserByEmail = async (email) => {
     return User.findOne({ email });
 };
@@ -36,5 +45,6 @@ const getUserByEmail = async (email) => {
 module.exports = {
     getUserByEmail,
     queryUsers,
-    createUser
+    createUser,
+    getUserById
 };

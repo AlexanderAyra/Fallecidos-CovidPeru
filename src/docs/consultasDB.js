@@ -1,11 +1,12 @@
-const Persona = require("../model/people.model");
+const { People } = require("../model");
 
-const departSexo = async (res, param) => {
-    const regexTerm = new RegExp(param.terminouno, "i");
+const getDepart = async (res, param) => {
+    console.log(param);
+    const regexTerm = new RegExp(param.termino, "i");
 
     const [count, personaOne] = await Promise.all([
-        Persona.countDocuments({ DEPARTAMENTO: regexTerm }),
-        Persona.find({ DEPARTAMENTO: regexTerm }),
+        People.countDocuments({ DEPARTAMENTO: regexTerm }),
+        People.find({ DEPARTAMENTO: regexTerm }),
     ]);
 
     return res.json({
@@ -15,11 +16,11 @@ const departSexo = async (res, param) => {
 };
 
 const getSexo = async (res, param) => {
-    const regexTerm = new RegExp(param.terminouno, "i");
+    const regexTerm = new RegExp(param.termino, "i");
 
     const [count, personaOne] = await Promise.all([
-        Persona.countDocuments({ SEXO: regexTerm }),
-        Persona.find({ SEXO: regexTerm }),
+        People.countDocuments({ SEXO: regexTerm }),
+        People.find({ SEXO: regexTerm }),
     ]);
 
     return res.json({
@@ -29,11 +30,11 @@ const getSexo = async (res, param) => {
 };
 
 const clasifDef = async (res, param) => {
-    const regex = new RegExp(param.terminouno, "i");
+    const regex = new RegExp(param.termino, "i");
 
     const [count, personasOne] = await Promise.all([
-        Persona.countDocuments({ CLASIFICACION_DEF: regex }),
-        Persona.find({ CLASIFICACION_DEF: regex }),
+        People.countDocuments({ CLASIFICACION_DEF: regex }),
+        People.find({ CLASIFICACION_DEF: regex }),
     ]);
 
     return res.json({
@@ -43,11 +44,11 @@ const clasifDef = async (res, param) => {
 };
 
 const fechaCorte = async (res, param) => {
-    const fechaCor = new Date(param.terminouno);
+    const fechaCor = new Date(param.termino);
 
     const [count, personasOne] = await Promise.all([
-        Persona.countDocuments({ FECHA_CORTE: fechaCor }),
-        Persona.find({ FECHA_CORTE: fechaCor }),
+        People.countDocuments({ FECHA_CORTE: fechaCor }),
+        People.find({ FECHA_CORTE: fechaCor }),
     ]);
 
     return res.json({
@@ -57,11 +58,11 @@ const fechaCorte = async (res, param) => {
 };
 
 const fechaFall = async (res, param) => {
-    const fechaFall = new Date(param.terminouno);
+    const fechaFall = new Date(param.termino);
 
     const [count, personaOne] = await Promise.all([
-        Persona.countDocuments({ FECHA_FALLECIMIENTO: fechaFall }),
-        Persona.find({ FECHA_FALLECIMIENTO: fechaFall }),
+        People.countDocuments({ FECHA_FALLECIMIENTO: fechaFall }),
+        People.find({ FECHA_FALLECIMIENTO: fechaFall }),
     ]);
 
     return res.json({
@@ -71,11 +72,11 @@ const fechaFall = async (res, param) => {
 };
 
 const edadDeclarada = async (res, param) => {
-    const edadDecl = Number(param.terminouno);
+    const edadDecl = Number(param.termino);
 
     const [count, personaOne] = await Promise.all([
-        Persona.countDocuments({ EDAD_DECLARADA: edadDecl }),
-        Persona.find({ EDAD_DECLARADA: edadDecl }),
+        People.countDocuments({ EDAD_DECLARADA: edadDecl }),
+        People.find({ EDAD_DECLARADA: edadDecl }),
     ]);
 
     return res.json({
@@ -85,11 +86,11 @@ const edadDeclarada = async (res, param) => {
 };
 
 const provDb = async (res, param) => {
-    const termino = new RegExp(param.terminouno, "i");
+    const termino = new RegExp(param.termino, "i");
 
     const [count, personaOne] = await Promise.all([
-        Persona.countDocuments({ PROVINCIA: termino }),
-        Persona.find({ PROVINCIA: termino }),
+        People.countDocuments({ PROVINCIA: termino }),
+        People.find({ PROVINCIA: termino }),
     ]);
 
     return res.json({
@@ -99,12 +100,12 @@ const provDb = async (res, param) => {
 };
 
 const distriDB = async (res, param) => {
-    const terminouno = param.terminouno.toUpperCase();
-    const regex = new RegExp(terminouno, "i");
+    const termino = param.termino.toUpperCase();
+    const regex = new RegExp(termino, "i");
 
     const [count, personaOne] = await Promise.all([
-        Persona.countDocuments({ DISTRITO: regex }),
-        Persona.find({ DISTRITO: regex }),
+        People.countDocuments({ DISTRITO: regex }),
+        People.find({ DISTRITO: regex }),
     ]);
 
     return res.json({
@@ -114,11 +115,11 @@ const distriDB = async (res, param) => {
 };
 
 const ubigeoDB = async (res, param) => {
-    const regex = Number(param.terminouno);
+    const regex = Number(param.termino);
 
     const [count, personaOne] = await Promise.all([
-        Persona.countDocuments({ UBIGEO: regex }),
-        Persona.find({ UBIGEO: regex }),
+        People.countDocuments({ UBIGEO: regex }),
+        People.find({ UBIGEO: regex }),
     ]);
 
     return res.json({
@@ -128,7 +129,7 @@ const ubigeoDB = async (res, param) => {
 };
 
 module.exports = {
-    departSexo,
+    getDepart,
     getSexo,
     clasifDef,
     fechaCorte,

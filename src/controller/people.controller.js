@@ -1,5 +1,6 @@
 const { request, response } = require("express");
 const People = require("../model/people.model");
+const { peopleService } = require('../services')
 const {
     mostrarAll,
     paramsTwo,
@@ -7,8 +8,10 @@ const {
     validarParams,
 } = require("../docs/implemts");
 
-const buscarAll = async (req = request, res = response) => {
+const getAll = async (req = request, res = response) => {
+
     const count = Object.keys(req.params).length;
+    console.log(count);
     if (count > 0) {
         const erParm = validarParams(req.params);
         if (erParm) {
@@ -35,40 +38,14 @@ const buscarAll = async (req = request, res = response) => {
     }
 };
 
-const personasPost = async (req = request, res = response) => {
-    const {
-        FECHA_CORTE,
-        FECHA_FALLECIMIENTO,
-        EDAD_DECLARADA,
-        SEXO,
-        CLASIFICACION_DEF,
-        UBIGEO,
-        UUID,
-        DEPARTAMENTO,
-        PROVINCIA,
-        DISTRITO,
-    } = req.body;
+const peoplePost = async (req = request, res = response) => {
 
-    const persoOne = new People({
-        FECHA_CORTE,
-        FECHA_FALLECIMIENTO,
-        EDAD_DECLARADA,
-        SEXO,
-        CLASIFICACION_DEF,
-        UBIGEO,
-        UUID,
-        DEPARTAMENTO,
-        PROVINCIA,
-        DISTRITO,
-    });
-    await persoOne.save();
+    const person = await peopleService.createPeople(req.body)
 
-    res.json({
-        persoOne,
-    });
+    res.status(httpStatus.CREATED).send(person);
 };
 
 module.exports = {
-    buscarAll,
-    personasPost,
+    getAll,
+    peoplePost,
 };

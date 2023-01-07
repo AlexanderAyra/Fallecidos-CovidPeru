@@ -70,6 +70,7 @@ userSchema.methods.toJSON = function () {
  * @returns {Promise<boolean>}
  */
 userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
+    console.log(excludeUserId);
     const user = await this.findOne({ email, _id: { $ne: excludeUserId } });
     return !!user;
 };

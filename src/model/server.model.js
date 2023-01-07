@@ -14,6 +14,7 @@ const { conectDB } = require("../config/db");
 class Server {
     constructor() {
         this.app = express();
+        this.serverClose = null;
         this.port = config.port;
 
         this.midlwares();
@@ -45,7 +46,7 @@ class Server {
     }
 
     listen() {
-        this.app.listen(this.port, () => {
+        this.serverClose = this.app.listen(this.port, () => {
             console.log("Corriendo en el puerto ", this.port);
         });
     }

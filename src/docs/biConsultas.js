@@ -1,4 +1,3 @@
-const { count } = require("../model/people.model");
 const Persona = require("../model/people.model");
 
 const departEdad = async (res, param) => {

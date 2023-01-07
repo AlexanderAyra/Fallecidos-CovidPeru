@@ -5,10 +5,11 @@ const Server = require("./model/server.model");
 const server = new Server();
 
 server.listen();
+serveClose = server.serverClose;
 
 const exitHandler = () => {
     if (server) {
-        server.close(() => {
+        serveClose.close(() => {
             logger.info("Server closed");
             process.exit(1);
         });
