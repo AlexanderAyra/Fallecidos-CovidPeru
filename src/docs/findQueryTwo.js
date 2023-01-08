@@ -1,10 +1,16 @@
 const { People } = require('../model')
 
+const { convertVariableOne, addConsultas } = require('./queryHelp')
+
 const getDepartamet = async (res, param) => {
 
   const queryTwo = param.consultados.toUpperCase();
-  const regexOne = new RegExp(param.termino.toUpperCase(), 'i');
-  const regexTwo = new RegExp(param.terminodos.toUpperCase(), 'i');
+
+  const cantidad = Object.keys(param).length;
+  const newArr = addConsultas(param, cantidad)
+  const regexOne = convertVariableOne(newArr[0], newArr[1])
+  const regexTwo = convertVariableOne(newArr[2], newArr[3])
+
 
 
   switch (queryTwo) {
@@ -56,8 +62,11 @@ const getDepartamet = async (res, param) => {
 const getProvince = async (res, param) => {
 
   const queryTwo = param.consultados.toUpperCase();
-  const regexOne = new RegExp(param.termino.toUpperCase(), 'i');
-  const regexTwo = new RegExp(param.terminodos.toUpperCase(), 'i');
+
+  const cantidad = Object.keys(param).length;
+  const newArr = addConsultas(param, cantidad)
+  const regexOne = convertVariableOne(newArr[0], newArr[1])
+  const regexTwo = convertVariableOne(newArr[2], newArr[3])
 
   switch (queryTwo) {
     case 'DISTRITO':
@@ -118,8 +127,11 @@ const getProvince = async (res, param) => {
 const getDistrict = async (res, param) => {
 
   const queryTwo = param.consultados.toUpperCase();
-  const regexOne = new RegExp(param.termino.toUpperCase(), 'i');
-  const regexTwo = new RegExp(param.terminodos.toUpperCase(), 'i');
+
+  const cantidad = Object.keys(param).length;
+  const newArr = addConsultas(param, cantidad)
+  const regexOne = convertVariableOne(newArr[0], newArr[1])
+  const regexTwo = convertVariableOne(newArr[2], newArr[3])
 
   switch (queryTwo) {
     case 'PROVINCIA':
@@ -180,8 +192,11 @@ const getDistrict = async (res, param) => {
 const getDateDeath = async (res, param) => {
 
   const queryTwo = param.consultados.toUpperCase();
-  const regexOne = new RegExp(param.termino.toUpperCase(), 'i');
-  const regexTwo = new RegExp(param.terminodos.toUpperCase(), 'i');
+
+  const cantidad = Object.keys(param).length;
+  const newArr = addConsultas(param, cantidad)
+  const regexOne = convertVariableOne(newArr[0], newArr[1])
+  const regexTwo = convertVariableOne(newArr[2], newArr[3])
 
   switch (queryTwo) {
     case 'PROVINCIA':
@@ -242,8 +257,11 @@ const getDateDeath = async (res, param) => {
 const getDateCourt = async (res, param) => {
 
   const queryTwo = param.consultados.toUpperCase();
-  const regexOne = new RegExp(param.termino.toUpperCase(), 'i');
-  const regexTwo = new RegExp(param.terminodos.toUpperCase(), 'i');
+
+  const cantidad = Object.keys(param).length;
+  const newArr = addConsultas(param, cantidad)
+  const regexOne = convertVariableOne(newArr[0], newArr[1])
+  const regexTwo = convertVariableOne(newArr[2], newArr[3])
 
   switch (queryTwo) {
     case 'PROVINCIA':
@@ -304,8 +322,11 @@ const getDateCourt = async (res, param) => {
 const getStateAge = async (res, param) => {
 
   const queryTwo = param.consultados.toUpperCase();
-  const regexOne = new RegExp(param.termino.toUpperCase(), 'i');
-  const regexTwo = new RegExp(param.terminodos.toUpperCase(), 'i');
+
+  const cantidad = Object.keys(param).length;
+  const newArr = addConsultas(param, cantidad)
+  const regexOne = convertVariableOne(newArr[0], newArr[1])
+  const regexTwo = convertVariableOne(newArr[2], newArr[3])
 
   switch (queryTwo) {
     case 'PROVINCIA':
@@ -366,8 +387,11 @@ const getStateAge = async (res, param) => {
 const getSex = async (res, param) => {
 
   const queryTwo = param.consultados.toUpperCase();
-  const regexOne = new RegExp(param.termino.toUpperCase(), 'i');
-  const regexTwo = new RegExp(param.terminodos.toUpperCase(), 'i');
+
+  const cantidad = Object.keys(param).length;
+  const newArr = addConsultas(param, cantidad)
+  const regexOne = convertVariableOne(newArr[0], newArr[1])
+  const regexTwo = convertVariableOne(newArr[2], newArr[3])
 
   switch (queryTwo) {
     case 'PROVINCIA':
@@ -428,8 +452,11 @@ const getSex = async (res, param) => {
 const getDeathClassification = async (res, param) => {
 
   const queryTwo = param.consultados.toUpperCase();
-  const regexOne = new RegExp(param.termino.toUpperCase(), 'i');
-  const regexTwo = new RegExp(param.terminodos.toUpperCase(), 'i');
+
+  const cantidad = Object.keys(param).length;
+  const newArr = addConsultas(param, cantidad)
+  const regexOne = convertVariableOne(newArr[0], newArr[1])
+  const regexTwo = convertVariableOne(newArr[2], newArr[3])
 
   switch (queryTwo) {
     case 'PROVINCIA':
@@ -490,8 +517,11 @@ const getDeathClassification = async (res, param) => {
 const getUbigeo = async (res, param) => {
 
   const queryTwo = param.consultados.toUpperCase();
-  const regexOne = new RegExp(param.termino.toUpperCase(), 'i');
-  const regexTwo = new RegExp(param.terminodos.toUpperCase(), 'i');
+
+  const cantidad = Object.keys(param).length;
+  const newArr = addConsultas(param, cantidad)
+  const regexOne = convertVariableOne(newArr[0], newArr[1])
+  const regexTwo = convertVariableOne(newArr[2], newArr[3])
 
   switch (queryTwo) {
     case 'PROVINCIA':
