@@ -8,6 +8,7 @@ const passport = require('passport');
 const config = require("../config/config");
 const { jwtStrategy } = require("../config/passport");
 const routes = require("../router/v1");
+const { swaggerDocs } = require('../docs/swaggerDef')
 
 const { conectDB } = require("../config/db");
 
@@ -48,6 +49,7 @@ class Server {
     listen() {
         this.serverClose = this.app.listen(this.port, () => {
             console.log("Corriendo en el puerto ", this.port);
+            swaggerDocs(this.app, this.port)
         });
     }
 }

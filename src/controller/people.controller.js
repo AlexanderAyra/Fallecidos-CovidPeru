@@ -1,5 +1,6 @@
 const { request, response } = require("express");
 const People = require("../model/people.model");
+const { headerToken } = require("./auth.controller");
 const { peopleService } = require('../services')
 const {
     mostrarAll,
@@ -9,7 +10,7 @@ const {
 } = require("../docs/implemts");
 
 const getAll = async (req = request, res = response) => {
-
+    console.log('authorization Perros ', req.headers.authorization);
     const count = Object.keys(req.params).length;
     console.log(count);
     if (count > 0) {
