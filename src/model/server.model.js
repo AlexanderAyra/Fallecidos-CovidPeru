@@ -48,6 +48,7 @@ class Server {
 
     listen() {
         this.serverClose = this.app.listen(this.port, () => {
+            localStorage.clear();
             console.log("Corriendo en el puerto ", this.port);
             swaggerDocs(this.app, this.port)
         });

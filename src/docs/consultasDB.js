@@ -1,7 +1,6 @@
 const { People } = require("../model");
 
 const getDepart = async (res, param) => {
-    console.log(param);
     const regexTerm = new RegExp(param.termino, "i");
 
     const [count, personaOne] = await Promise.all([

@@ -27,7 +27,7 @@ router
  *   get:
  *     summary: Get People
  *     description: Lista de Todos los Fallecidos por Covid por 4 parametros
- *     tags: [Fallecidos por Covid]
+ *     tags: [TODOS LOS FALLECIDOS]
  *     responses:
  *       200:
  *         description: OK
@@ -43,100 +43,31 @@ router
  *                   type: array 
  *                   items: 
  *                     type: object
- * 
-*   post:
- *     summary: Create a People
- *     description: Only admins can create other users.
- *     tags: [Fallecidos por Covid]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - FECHA_CORTE
- *               - FECHA_FALLECIMIENTO
- *               - EDAD_DECLARADA
- *               - SEXO
- *               - CLASIFICACION_DEF
- *               - DEPARTAMENTO
- *               - PROVINCIA
- *               - DISTRITO
- *               - UBIGEO
- *               - UUID
- *             properties:
- *               FECHA_CORTE:
- *                 type: string
- *               FECHA_FALLECIMIENTO:
- *                 type: string
- *               EDAD_DECLARADA:
- *                 type: string
- *               SEXO:
- *                 type: string
- *               CLASIFICACION_DEF:
- *                 type: string
- *               DEPARTAMENTO:
- *                 type: string
- *               PROVINCIA:
- *                 type: string
- *               DISTRITO:
- *                 type: string
- *               UBIGEO:
- *                 type: string
- *               UUID:
- *                  type: string
- *             example:
- *               FECHA_CORTE: 2002-10-01
- *               FECHA_FALLECIMIENTO: 2002-10-01
- *               EDAD_DECLARADA: 25
- *               SEXO: masculino
- *               CLASIFICACION_DEF: Criterio SINADEF
- *               DEPARTAMENTO: Lima
- *               PROVINCIA: Lima
- *               DISTRITO: ate
- *               UBIGEO: 150108
- *               UUID: 13890096
- *     responses:
- *       "201":
- *         description: Created
- *         content:
- *           application/json:
- *             schema:
- *                $ref: '#/components/schemas/User'
- *       "400":
- *         $ref: '#/components/responses/DuplicateEmail'
- *       "401":
- *         $ref: '#/components/responses/Unauthorized'
- *       "403":
- *         $ref: '#/components/responses/Forbidden'
  */
 
 /**
  * @swagger
- * /api/personas/{consulta}/{termino}:
+ * /api/personas/Departamento/{name}:
  *   get:
  *     summary: Get People
  *     description: Lista de todos los Fallecidos por covid por 2 Parametros
- *     tags: [Fallecidos por Covid]
+ *     tags: [SPECIFY DECEASED]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: name
  *         required: true
  *         schema:
  *           type: string
- *         description: User id
+ *         description: Ingrese el Departamento
  *     responses:
  *       "200":
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#/components/schemas/User'
+ *                $ref: '#/components/schemas/People'
  *       "401":
  *         $ref: '#/components/responses/Unauthorized'
  *       "403":
@@ -147,20 +78,212 @@ router
 
 /**
  * @swagger
- * /api/personas/{consulta}/{termino}/{consultados}/{terminodos}:
+ * /api/personas/Provincia/{name}:
  *   get:
  *     summary: Get People
- *     description: Lista de Todos los Fallecidos por Covid por 4 parametros
- *     tags: [Fallecidos por Covid]
+ *     description: Lista de todos los Fallecidos por covid por 2 Parametros
+ *     tags: [SPECIFY DECEASED]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: name
  *         required: true
  *         schema:
  *           type: string
- *         description: User id
+ *         description: Ingrese la Provincia
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/People'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /api/personas/Distrito/{name}:
+ *   get:
+ *     summary: Get People
+ *     description: Lista de todos los Fallecidos por covid por 2 Parametros
+ *     tags: [SPECIFY DECEASED]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: name
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese el Distrito
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/People'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /api/personas/Sexo/{sexo}:
+ *   get:
+ *     summary: Get People
+ *     description: Lista de todos los Fallecidos por covid por 2 Parametros
+ *     tags: [SPECIFY DECEASED]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: sexo
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese el Sexo
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/People'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /api/personas/CLASIFICACION_DEF/{name}:
+ *   get:
+ *     summary: Get People
+ *     description: Lista de todos los Fallecidos por covid por 2 Parametros
+ *     tags: [SPECIFY DECEASED]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: name
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese la Clasificacion de Defuncion
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/People'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /api/personas/edad_declarada/{edad}:
+ *   get:
+ *     summary: Get People
+ *     description: Lista de todos los Fallecidos por covid por 2 Parametros
+ *     tags: [SPECIFY DECEASED]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: edad
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese la Edad
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/People'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /api/personas/FECHA_FALLECIMIENTO/{fecha}:
+ *   get:
+ *     summary: Get People
+ *     description: Lista de todos los Fallecidos por covid por 2 Parametros
+ *     tags: [SPECIFY DECEASED]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: fecha
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese la Fecha de Fallecimiento
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/People'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+/**
+ * @swagger
+ * /api/personas/Departamento/{departamento}/DISTRITO/{distrito}:
+ *   get:
+ *     summary: Get People
+ *     description: Lista de Todos los Fallecidos por Covid por 4 parametros
+ *     tags: [Fallecidos por DEPARTAMENTO Y EL DISTRITO]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: departamento
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese el  Departamento
+ *       - in: path
+ *         name: distrito
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese el Distrito
  *     responses:
  *       "200":
  *         description: OK
@@ -176,5 +299,157 @@ router
  *         $ref: '#/components/responses/NotFound'
  */
 
+
+/**
+ * @swagger
+ * /api/personas/Departamento/{departamento}/PROVINCIA/{provincia}:
+ *   get:
+ *     summary: Get People
+ *     description: Lista de Todos los Fallecidos por Covid por 4 parametros
+ *     tags: [Fallecidos por DEPARTAMENTO Y LA PROVINCIA]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: departamento
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese el  Departamento
+ *       - in: path
+ *         name: provincia
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese la Provincia
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/User'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+
+/**
+ * @swagger
+ * /api/personas/Departamento/{departamento}/SEXO/{sexo}:
+ *   get:
+ *     summary: Get People
+ *     description: Lista de Todos los Fallecidos por Covid por 4 parametros
+ *     tags: [Fallecidos por DEPARTAMENTO Y EL SEXO]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: departamento
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese el  Departamento
+ *       - in: path
+ *         name: sexo
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese el Sexo
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/User'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+
+/**
+ * @swagger
+ * /api/personas/DISTRITO/{distrito}/SEXO/{sexo}:
+ *   get:
+ *     summary: Get People
+ *     description: Lista de Todos los Fallecidos por Covid por 4 parametros
+ *     tags: [Fallecidos por el DISTRITO Y EL SEXO]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: distrito
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese el  distrito
+ *       - in: path
+ *         name: sexo
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese el Sexo
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/User'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+
+
+/**
+ * @swagger
+ * /api/personas/DISTRITO/{distrito}/EDAD_DECLARADA/{edad}:
+ *   get:
+ *     summary: Get People
+ *     description: Lista de Todos los Fallecidos por Covid por 4 parametros
+ *     tags: [Fallecidos por el DISTRITO Y EL EDAD]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: distrito
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese el  distrito
+ *       - in: path
+ *         name: edad
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Ingrese la edad
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/User'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
 
 module.exports = router;

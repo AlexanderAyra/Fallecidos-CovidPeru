@@ -15,6 +15,35 @@ components:
         role:
           type: string
           enum: [user, admin]
+    
+    People:
+      type: object
+      properties:
+        id:
+          type: string
+        FECHA_CORTE:
+          type: string
+          format: date
+        FECHA_FALLECIMIENTO:
+          type: string
+          format: date
+        EDAD_DECLARADA:
+          type: integer
+          format: int32
+        SEXO:
+          type: string
+        CLASIFICACION_DEF:
+          type: string
+        DEPARTAMENTO:
+          type: string
+        PROVINCIA:
+          type: string
+        DISTRITO:
+          type: string
+        UBIGEO:
+          type: string
+        UUID:
+          type: string
 
     Token:
       type: object

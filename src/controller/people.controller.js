@@ -10,9 +10,7 @@ const {
 } = require("../docs/implemts");
 
 const getAll = async (req = request, res = response) => {
-    console.log('authorization Perros ', req.headers.authorization);
     const count = Object.keys(req.params).length;
-    console.log(count);
     if (count > 0) {
         const erParm = validarParams(req.params);
         if (erParm) {

@@ -11,7 +11,7 @@ router.post('/login', validate(authValidation.login), authController.login)
  * @swagger
  * /api/auth/login:
  *   post:
- *     summary: Login
+ *     summary: Ingrese sus datos
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -30,8 +30,8 @@ router.post('/login', validate(authValidation.login), authController.login)
  *                 type: string
  *                 format: password
  *             example:
- *               email: fake@example.com
- *               password: password1
+ *               email: usuario001@gmail.com
+ *               password: 123456aa
  *     responses:
  *       "200":
  *         description: OK

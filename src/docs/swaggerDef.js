@@ -6,7 +6,8 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: 'Covid-19',
+      title: 'Fallecidos por el Covid-19',
+      description: `La enfermedad por coronavirus (COVID 19) es una enfermedad infecciosa provocada por el virus SARS-CoV-2. Segun el Ministerio de Salud estos son los muertos que tienen en el perio 2022`,
       version: '1.0.1'
     }
   },
