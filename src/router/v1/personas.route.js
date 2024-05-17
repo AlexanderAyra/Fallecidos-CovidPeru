@@ -21,6 +21,7 @@ router
   .route('/:consulta/:termino/:consultados/:terminodos')
   .get(auth('getUsers'), validate(peopleValidation.getPeople), peopleController.getAll);
 
+
 /**
  * @openapi
  * /api/personas:
@@ -44,6 +45,7 @@ router
  *                   items: 
  *                     type: object
  */
+
 
 /**
  * @swagger
